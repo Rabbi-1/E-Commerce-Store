@@ -1,9 +1,13 @@
 package com.fuadrabbi.eommerce_backend.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 //Address for the user
 @Entity
+@Getter
+@Setter
 @Table(name = "address")
 public class Address {
 
@@ -30,58 +34,6 @@ public class Address {
     private LocalUser user;
 
 
-    public LocalUser getUser() {
-        return user;
-    }
-
-
-    public void setUser(LocalUser user) {
-        this.user = user;
-    }
-
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getAddressLine2() {
-        return addressLine2;
-    }
-
-
-    public void setAddressLine2(String addressLine2) {
-        this.addressLine2 = addressLine2;
-    }
-
-
-    public String getAddressLine1() {
-        return addressLine1;
-    }
-
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
 
 }
