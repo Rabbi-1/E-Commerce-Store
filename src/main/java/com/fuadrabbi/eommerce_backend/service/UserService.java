@@ -1,31 +1,48 @@
 package com.fuadrabbi.eommerce_backend.service;
 
+import com.fuadrabbi.eommerce_backend.api.model.LoginBody;
 import com.fuadrabbi.eommerce_backend.api.model.RegistrationBody;
-import com.fuadrabbi.eommerce_backend.api.model.dao.LocalUserDAO;
+import com.fuadrabbi.eommerce_backend.model.dao.LocalUserDAO;
 import com.fuadrabbi.eommerce_backend.exception.UserAlreadyExistsException;
 import com.fuadrabbi.eommerce_backend.model.LocalUser;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
-    private final LocalUserDAO localUserDAO;
-    public UserService(LocalUserDAO localUserDAO) {
+    private LocalUserDAO localUserDAO;
+    private EncryptionService encryptionService;
+    private JWTService jwtService;
+
+    public UserService(LocalUserDAO localUserDAO, EncryptionService encryptionService, JWTService jwtService) {
         this.localUserDAO = localUserDAO;
+        this.encryptionService = encryptionService;
+        this.jwtService = jwtService;
     }
 
-    public void registerUser(RegistrationBody registrationBody) throws UserAlreadyExistsException {
-        if (localUserDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent() ||
-                localUserDAO.findByUsernameIgnoreCase(registrationBody.getUsername()).isPresent()) {
+    public LocalUser registerUser(RegistrationBody registrationBody) throws UserAlreadyExistsException {
+        if (localUserDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent()
+                || localUserDAO.findByUsernameIgnoreCase(registrationBody.getUsername()).isPresent()) {
             throw new UserAlreadyExistsException();
         }
-
         LocalUser user = new LocalUser();
         user.setEmail(registrationBody.getEmail());
         user.setUsername(registrationBody.getUsername());
         user.setFirstName(registrationBody.getFirstName());
         user.setLastName(registrationBody.getLastName());
-        //TODO: Encrypt password
-        user.setPassword(registrationBody.getPassword());
-        localUserDAO.save(user);
+        user.setPassword(encryptionService.encryptPassword(registrationBody.getPassword()));
+        return localUserDAO.save(user);
+    }
+
+    public String loginUser(LoginBody loginBody) {
+        Optional<LocalUser> opUser = localUserDAO.findByUsernameIgnoreCase(loginBody.getUsername());
+        if(opUser.isPresent()) {
+            LocalUser user = opUser.get();
+            if(encryptionService.verifyPassword(loginBody.getPassword(), user.getPassword())) {
+                return jwtService.generateJWT(user);
+            }
+        }
+        return null;
     }
 }

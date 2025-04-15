@@ -1,4 +1,4 @@
-package com.fuadrabbi.eommerce_backend.api.model.dao;
+package com.fuadrabbi.eommerce_backend.model.dao;
 
 import com.fuadrabbi.eommerce_backend.model.LocalUser;
 import org.springframework.data.repository.CrudRepository;

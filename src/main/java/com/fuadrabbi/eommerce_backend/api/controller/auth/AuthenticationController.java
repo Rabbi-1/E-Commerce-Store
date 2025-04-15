@@ -1,5 +1,7 @@
 package com.fuadrabbi.eommerce_backend.api.controller.auth;
 
+import com.fuadrabbi.eommerce_backend.api.model.LoginBody;
+import com.fuadrabbi.eommerce_backend.api.model.LoginResponse;
 import com.fuadrabbi.eommerce_backend.api.model.RegistrationBody;
 import com.fuadrabbi.eommerce_backend.exception.UserAlreadyExistsException;
 import com.fuadrabbi.eommerce_backend.service.UserService;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
-    private UserService userService;
+    private final UserService userService;
 
     public AuthenticationController(UserService userService) {
         this.userService = userService;
@@ -25,9 +27,19 @@ public class AuthenticationController {
         try {
             userService.registerUser(registrationBody);
             return ResponseEntity.ok().build();
-        } catch (UserAlreadyExistsException e) {
+        } catch (UserAlreadyExistsException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
-
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginBody loginBody) {
+        String jwt = userService.loginUser(loginBody);
+        if (jwt == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else {
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setJwt(jwt);
+            return ResponseEntity.ok(loginResponse);
+        }
+    }
 }
