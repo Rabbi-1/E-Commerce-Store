@@ -4,12 +4,14 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fuadrabbi.eommerce_backend.model.LocalUser;
 import jakarta.annotation.PostConstruct;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 @Service
+@NoArgsConstructor
 public class JWTService {
     @Value("${jwt.algorithm.key}")
     private String algorithmKey;
