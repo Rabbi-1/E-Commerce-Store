@@ -46,3 +46,10 @@ public class UserService {
         return null;
     }
 }
+
+//This UserService class in a Spring Boot application handles user registration and login functionality.
+// It interacts with the LocalUserDAO to check if a user already exists and to save new users.
+// During registration, it encrypts the password using EncryptionService before storing the user.
+// For login, it verifies the user's credentials by checking the password and, if valid, generates a JWT (JSON Web Token)
+// using JWTService to authenticate the user. If login fails, it returns null. The service ensures secure handling of user
+// credentials and token-based authentication.

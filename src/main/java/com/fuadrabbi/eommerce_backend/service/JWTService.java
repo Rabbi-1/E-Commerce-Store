@@ -41,3 +41,8 @@ public class JWTService {
     }
 
 }
+//The JWTService class is responsible for generating and decoding JSON Web Tokens (JWTs) for user authentication.
+// It uses configuration values for the secret key (algorithmKey), token issuer, and expiration time, initializing
+// the signing algorithm after the object is constructed. The generateJWT method creates a signed token containing
+// the user's username, issuer information, and an expiration timestamp. The getUsername method decodes a given JWT to extract
+// the stored username claim. This service supports secure, stateless authentication in the application.

@@ -1,4 +1,4 @@
-package com.fuadrabbi.eommerce_backend.api.controller.auth;
+package com.fuadrabbi.eommerce_backend.api.controller;
 
 import com.fuadrabbi.eommerce_backend.api.model.LoginBody;
 import com.fuadrabbi.eommerce_backend.api.model.LoginResponse;
@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -47,3 +46,7 @@ public class AuthenticationController {
         return user;
     }
 }
+//The AuthenticationController handles user registration, login, and profile retrieval.
+// It exposes API endpoints to register a new user, authenticate a user and return a JWT, and retrieve
+// the profile of the currently logged-in user. It delegates user-related operations to the
+// UserService and returns appropriate HTTP responses based on the outcome.

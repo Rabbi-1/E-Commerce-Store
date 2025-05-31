@@ -25,3 +25,6 @@ public class EncryptionService {
     }
 }
 
+//The EncryptionService class handles password encryption and verification using BCrypt.
+// It generates a salt during initialization and uses it to securely hash passwords, as well as to verify
+// if a given password matches a stored hash.
