@@ -1,4 +1,4 @@
-package com.fuadrabbi.eommerce_backend.api.controller;
+package com.fuadrabbi.eommerce_backend.api.controller.auth;
 
 import com.fuadrabbi.eommerce_backend.api.model.LoginBody;
 import com.fuadrabbi.eommerce_backend.api.model.LoginResponse;
