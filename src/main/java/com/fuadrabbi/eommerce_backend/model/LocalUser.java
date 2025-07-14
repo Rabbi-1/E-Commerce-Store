@@ -38,4 +38,7 @@ public class LocalUser {
     private List<Address> addresses = new ArrayList<>();
 
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VerificationToken> verificationTokens = new ArrayList<>();
+
 }

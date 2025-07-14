@@ -27,6 +27,11 @@ public class WebSecurityConfig {
                 )
                 .build();
     }
-
-
 }
+// The WebSecurityConfig class sets up the security rules for the application using Spring Security.
+// It disables CSRF and CORS and injects a custom JWTRequestFilter
+// that checks for valid JWT tokens in incoming requests.
+// Public access is allowed to the /product, /auth/register, and /auth/login endpoints.
+// All other endpoints require authentication.
+// This configuration ensures that only authenticated users can access protected resources, while still
+// allowing unauthenticated users to register or log in.
