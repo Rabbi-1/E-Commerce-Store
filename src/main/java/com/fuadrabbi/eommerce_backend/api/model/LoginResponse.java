@@ -7,4 +7,10 @@ import lombok.Setter;
 @Setter
 public class LoginResponse {
     private String jwt;
+    private boolean success;
+    private String failureReason;
+
+    public boolean isSuccess() {
+        return success;
+    }
 }

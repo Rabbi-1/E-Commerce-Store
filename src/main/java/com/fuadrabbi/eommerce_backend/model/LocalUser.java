@@ -39,6 +39,14 @@ public class LocalUser {
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("id desc")
     private List<VerificationToken> verificationTokens = new ArrayList<>();
+
+    @Column(name = "email_verified", nullable = false)
+    private Boolean emailVerified = false;
+
+    public boolean isEmailVerified(){
+        return emailVerified;
+    }
 
 }
