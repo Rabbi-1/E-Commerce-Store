@@ -1,4 +1,4 @@
-### 🛒 E-Commerce Backend API (Spring Boot)
+### E-Commerce Backend API (Spring Boot)
 
 This project is a secure, modular e-commerce backend built using **Spring Boot**, featuring **JWT authentication**, **email verification**, and basic product/order management functionality.
 
