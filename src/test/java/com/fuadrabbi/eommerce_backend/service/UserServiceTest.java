@@ -5,6 +5,7 @@ import com.fuadrabbi.eommerce_backend.api.model.RegistrationBody;
 import com.fuadrabbi.eommerce_backend.exception.EmailFailureException;
 import com.fuadrabbi.eommerce_backend.exception.UserAlreadyExistsException;
 import com.fuadrabbi.eommerce_backend.exception.UserNotVerifiedException;
+import com.fuadrabbi.eommerce_backend.model.VerificationToken;
 import com.fuadrabbi.eommerce_backend.model.dao.VerificationTokenDAO;
 import com.icegreen.greenmail.configuration.GreenMailConfiguration;
 import com.icegreen.greenmail.junit5.GreenMailExtension;
@@ -18,6 +19,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 
 
@@ -34,6 +37,7 @@ public class UserServiceTest {
 
     @Autowired
     private VerificationTokenDAO verificationTokenDAO;
+
 
     @Test
     @Transactional
@@ -86,5 +90,24 @@ public class UserServiceTest {
             Assertions.assertEquals(1, greenMailExtension.getReceivedMessages().length);
         }
     }
+    @Test
+    @Transactional
+    public void testVerifyUser() throws EmailFailureException {
+        Assertions.assertFalse(userService.verifyUser("Bad token"), "Token that is bad or does not exist should return false.");
+        LoginBody body = new LoginBody();
+        body.setUsername("UserB");
+        body.setPassword("PasswordB123");
+        try{
+            userService.loginUser(body);
+            Assertions.assertTrue(false, "User should not have email verified.");
+        } catch (UserNotVerifiedException ex) {
+            List<VerificationToken> tokens = verificationTokenDAO.findByUser_IdOrderByIdDesc(2L);
+            String token = tokens.get(0).getToken();
+            Assertions.assertTrue(userService.verifyUser(token), "Token should be valid.");
+
+
+        }
+    }
+
 
 }
