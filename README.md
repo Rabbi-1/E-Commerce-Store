@@ -80,8 +80,6 @@ app.frontend.url=http://localhost:3000
 encryption.salt.rounds=10
 ```
 
-Got it — here’s the **polished, professional GitHub-style version** of the *"How to Run This Project Locally"* section, with proper formatting and emojis, perfect for dropping into a `README.md`:
-
 ---
 
 ### How to Run This Project Locally
