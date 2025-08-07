@@ -88,7 +88,7 @@ encryption.salt.rounds=10
 #### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/eommerce_backend.git
+git clone https://github.com/Rabbi-1/E-Commerce-Store.git
 cd eommerce_backend
 ```
 
@@ -125,7 +125,7 @@ Make sure a compatible SQL database (e.g., MySQL, PostgreSQL) is running and you
 You can start the backend using Maven:
 
 ```bash
-./mvnw spring-boot:run
+ ./mvnw spring-boot:run
 ```
 
 Or run it directly from your IDE (like IntelliJ).
